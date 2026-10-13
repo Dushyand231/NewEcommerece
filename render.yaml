@@ -1,0 +1,44 @@
+# Render blueprint - single Web Service that builds the React app
+# and serves it together with the Express API from one origin.
+#
+# Usage: Render Dashboard -> New -> Blueprint -> connect this repo.
+services:
+  - type: web
+    name: shopsphere
+    runtime: node
+    plan: free
+    region: oregon
+    branch: main
+    autoDeploy: true
+    buildCommand: npm --prefix backend install && npm --prefix frontend install && npm --prefix frontend run build
+    startCommand: node backend/server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: CLIENT_ORIGIN
+        sync: false
+      - key: FREE_DELIVERY_ABOVE
+        value: "999"
+      - key: DELIVERY_FEE
+        value: "49"
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: ADMIN_SEED_EMAIL
+        value: admin@shopsphere.com
+      - key: ADMIN_SEED_PASSWORD
+        sync: false
