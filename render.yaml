@@ -4,7 +4,7 @@
 # Usage: Render Dashboard -> New -> Blueprint -> connect this repo.
 services:
   - type: web
-    name: shopsphere
+    name: newecommerece
     runtime: node
     plan: free
     region: oregon
@@ -23,7 +23,7 @@ services:
       - key: JWT_EXPIRES_IN
         value: 7d
       - key: CLIENT_ORIGIN
-        sync: false
+        value: https://newecommerece.onrender.com
       - key: FREE_DELIVERY_ABOVE
         value: "999"
       - key: DELIVERY_FEE

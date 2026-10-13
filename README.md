@@ -104,7 +104,7 @@ GET    /api/health
    - **Start Command:** `node backend/server.js`
    - **Health Check Path:** `/api/health`
 3. Set the environment variables (see table above). Set `CLIENT_ORIGIN` to your Render URL,
-   e.g. `https://shopsphere.onrender.com`.
+   e.g. `https://newecommerece.onrender.com`.
 4. **Auto-deploy** is enabled — every push to `main` redeploys.
 
 ### 4. Seed production data
@@ -115,7 +115,7 @@ npm --prefix backend run seed:demo   # optional demo customer: demo@shopsphere.c
 ```
 
 ### 5. Verify
-- `GET https://<your-service>.onrender.com/api/health` -> `{ "success": true }`
+- `GET https://newecommerece.onrender.com/api/health` -> `{ "success": true }`
 - Homepage loads; login/register work; admin can create a product with an image; COD checkout works.
 
 ## Notes
