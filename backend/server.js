@@ -89,6 +89,17 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
+const requiredEnv = ['JWT_SECRET', 'MONGO_URI'];
+const missingEnv = requiredEnv.filter((key) => !process.env[key]);
+if (missingEnv.length) {
+  console.error(
+    `WARNING: missing required environment variable(s): ${missingEnv.join(
+      ', '
+    )}. Set them in Render -> Environment (or backend/.env locally). ` +
+      'Auth endpoints will fail until JWT_SECRET is set.'
+  );
+}
+
 connectDB()
   .then(() => {
     app.listen(PORT, () => console.log(`Backend running on http://localhost:${PORT}`));
