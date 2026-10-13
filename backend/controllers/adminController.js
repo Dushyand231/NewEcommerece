@@ -5,13 +5,18 @@ const Product = require('../models/Product');
 const Order = require('../models/Order');
 
 const getStats = asyncHandler(async (req, res) => {
-  const [users, products, orders, revenueAgg, recentOrders] = await Promise.all([
+  const [users, products, orders, revenueAgg, buyersAgg, recentOrders] = await Promise.all([
     User.countDocuments({ role: 'customer' }),
     Product.countDocuments(),
     Order.countDocuments(),
     Order.aggregate([
       { $match: { status: { $ne: 'Cancelled' } } },
       { $group: { _id: null, total: { $sum: '$totalPrice' } } },
+    ]),
+    Order.aggregate([
+      { $match: { status: { $ne: 'Cancelled' } } },
+      { $group: { _id: '$user' } },
+      { $count: 'buyers' },
     ]),
     Order.find().populate('user', 'name email').sort({ createdAt: -1 }).limit(5),
   ]);
@@ -22,6 +27,7 @@ const getStats = asyncHandler(async (req, res) => {
       users,
       products,
       orders,
+      buyers: buyersAgg[0]?.buyers || 0,
       revenue: revenueAgg[0]?.total || 0,
     },
     recentOrders,

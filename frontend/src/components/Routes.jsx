@@ -28,6 +28,12 @@ function RequireAuth({ children }) {
   return children;
 }
 
+function LandingGate() {
+  const { isAuthenticated, loading } = useAuth();
+  if (loading) return null;
+  return isAuthenticated ? <HomePage /> : <LoginPage />;
+}
+
 function RequireAdmin({ children }) {
   const { isAuthenticated, isAdmin, loading } = useAuth();
   if (loading) return null;
@@ -42,7 +48,7 @@ export default function Routes() {
       <Navbar />
       <main className="main-content">
         <RouterRoutes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<LandingGate />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/cart" element={<CartPage />} />

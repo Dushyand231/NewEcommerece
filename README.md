@@ -37,7 +37,7 @@ Requirements: Node.js 18+ and a MongoDB URI.
    cd backend
    npm install
    copy .env.example .env   # fill MONGO_URI and JWT_SECRET
-   npm run seed             # inserts 15 products + admin account
+   npm run seed             # inserts 19 products + admin account
    npm run dev              # http://localhost:5000
    ```
    Seeded admin: `admin@shopsphere.com` / `admin123` (override with `ADMIN_SEED_EMAIL` / `ADMIN_SEED_PASSWORD`).
@@ -117,6 +117,38 @@ npm --prefix backend run seed:demo   # optional demo customer: demo@shopsphere.c
 ### 5. Verify
 - `GET https://newecommerece.onrender.com/api/health` -> `{ "success": true }`
 - Homepage loads; login/register work; admin can create a product with an image; COD checkout works.
+
+   ```
+   npm --prefix backend run seed
+   npm --prefix backend run seed:demo   # demo customers (see below)
+   ```
+   Demo customers (all password `password123`): `ava@`, `liam@`, `noah@`, `mia@shopsphere.com`.
+
+## Deploy the frontend on Vercel
+
+The frontend can be hosted separately on Vercel while the API stays on Render. This is a
+**cross-origin** setup, so the backend must allow the Vercel domain.
+
+1. Push this repo to GitHub (branch `main`).
+2. In Vercel: **Add New -> Project -> Import** the repo, then set:
+   - **Root Directory:** `frontend`
+   - **Framework Preset:** Vite (auto-detected)
+   - **Build Command:** `npm run build`  |  **Output Directory:** `dist`
+3. Add an environment variable (all environments):
+   ```
+   VITE_API_URL=https://newecommerece.onrender.com/api
+   ```
+   `frontend/vercel.json` already rewrites all routes to `/index.html` for client-side routing.
+4. On **Render**, update the backend env var so CORS allows the Vercel site:
+   ```
+   CLIENT_ORIGIN=https://newecommerece.onrender.com,https://<your-app>.vercel.app
+   ```
+   Wildcards are supported, e.g. `https://*.vercel.app` (covers preview deployments).
+5. Redeploy Vercel if you change `VITE_API_URL` — Vite inlines it at **build time**.
+6. Verify: open the Vercel URL, log in, and confirm the browser network tab shows API calls to
+   `https://newecommerece.onrender.com/api` returning 200 (not CORS errors).
+
+> Keep the Render service running — it hosts the API (and may keep serving the built SPA as a fallback).
 
 ## Notes
 

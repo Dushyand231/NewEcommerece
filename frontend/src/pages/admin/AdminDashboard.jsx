@@ -34,6 +34,10 @@ export default function AdminDashboard() {
           <strong>{stats.orders}</strong>
         </div>
         <div className="stat-card">
+          <span>Buyers</span>
+          <strong>{stats.buyers}</strong>
+        </div>
+        <div className="stat-card">
           <span>Products</span>
           <strong>{stats.products}</strong>
         </div>
@@ -42,6 +46,10 @@ export default function AdminDashboard() {
           <strong>{stats.users}</strong>
         </div>
       </div>
+
+      <p className="muted">
+        {stats.buyers} of {stats.users} customers have placed an order.
+      </p>
 
       <h3>Recent orders</h3>
       <div className="table-wrap">

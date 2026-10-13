@@ -155,6 +155,10 @@ img {
   height: 68px;
 }
 
+.navbar-inner-auth {
+  justify-content: space-between;
+}
+
 .brand {
   font-size: 1.4rem;
   font-weight: 800;
@@ -817,7 +821,10 @@ textarea:focus {
 /* Auth */
 .auth-page {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  gap: 1.2rem;
   padding: 3rem 0;
 }
 
@@ -845,6 +852,59 @@ textarea:focus {
 .auth-alt a {
   color: var(--primary);
   font-weight: 600;
+}
+
+.demo-accounts {
+  width: min(420px, 100%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1rem 1.2rem;
+}
+
+.demo-title {
+  margin: 0 0 0.6rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.demo-accounts ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.demo-account {
+  width: 100%;
+  text-align: left;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.55rem 0.7rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  font: inherit;
+}
+
+.demo-account:hover {
+  border-color: var(--primary);
+}
+
+.demo-name {
+  font-weight: 600;
+}
+
+.demo-cred {
+  font-size: 0.8rem;
+  color: var(--muted);
 }
 
 /* Account / Admin layout */

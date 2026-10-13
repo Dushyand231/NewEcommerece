@@ -22,6 +22,10 @@ const products = [
   { name: 'Dumbbell Set (10kg)', description: 'Pair of hex rubber-coated dumbbells for home workouts.', brand: 'ZenFit', category: 'Sports', price: 2499, actualPrice: 3299, stock: 20 },
   { name: 'Bestselling Self-Help Collection', description: 'A curated 3-book collection on productivity and mindset.', brand: 'PageTurn', category: 'Books', price: 999, actualPrice: 1499, stock: 90, featured: true },
   { name: 'Robotic STEM Building Kit', description: '500+ pieces, app-controlled robot for kids aged 8 and above.', brand: 'ToyNest', category: 'Toys', price: 2799, actualPrice: 3799, stock: 40 },
+  { name: 'Illustrated World Cookbook', description: 'A beautifully illustrated cookbook with 120 recipes from around the world.', brand: 'PageTurn', category: 'Books', price: 1299, actualPrice: 1899, stock: 60 },
+  { name: 'Wooden Marble Run Set', description: '100-piece wooden marble run that builds spatial reasoning and creativity.', brand: 'ToyNest', category: 'Toys', price: 1999, actualPrice: 2799, stock: 35, featured: true },
+  { name: 'Stainless Steel Insulated Bottle', description: 'Double-walled 750ml bottle keeps drinks cold for 24h or hot for 12h.', brand: 'HomeCraft', category: 'Other', price: 899, actualPrice: 1299, stock: 110 },
+  { name: 'Canvas Everyday Tote Bag', description: 'Durable cotton canvas tote with an inner pocket and reinforced handles.', brand: 'UrbanRoost', category: 'Other', price: 799, actualPrice: 1199, stock: 95 },
 ];
 
 async function seed() {
@@ -29,7 +33,6 @@ async function seed() {
 
   const adminEmail = (process.env.ADMIN_SEED_EMAIL || 'admin@shopsphere.com').toLowerCase();
   await Product.deleteMany();
-  await User.deleteMany({ role: 'customer' });
 
   const hashedPassword = await bcrypt.hash(process.env.ADMIN_SEED_PASSWORD || 'admin123', 10);
   await User.findOneAndUpdate(
@@ -41,7 +44,9 @@ async function seed() {
   const docs = products.map((p) => ({
     ...p,
     category: categories.includes(p.category) ? p.category : 'Other',
-    images: [`https://picsum.photos/seed/${encodeURIComponent(p.name)}/600/400`],
+    images: [1, 2, 3].map(
+      (n) => `https://picsum.photos/seed/${encodeURIComponent(`${p.name}-${n}`)}/600/400`
+    ),
   }));
   await Product.insertMany(docs);
 

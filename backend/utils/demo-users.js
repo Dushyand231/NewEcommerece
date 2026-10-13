@@ -4,7 +4,10 @@ const { connectDB } = require('../config/db');
 const User = require('../models/User');
 
 const demoUsers = [
-  { name: 'Demo Shopper', email: 'demo@shopsphere.com', password: 'demo123', role: 'customer' },
+  { name: 'Ava Johnson', email: 'ava@shopsphere.com', password: 'password123', role: 'customer' },
+  { name: 'Liam Smith', email: 'liam@shopsphere.com', password: 'password123', role: 'customer' },
+  { name: 'Noah Patel', email: 'noah@shopsphere.com', password: 'password123', role: 'customer' },
+  { name: 'Mia Garcia', email: 'mia@shopsphere.com', password: 'password123', role: 'customer' },
 ];
 
 async function seedDemoUsers() {

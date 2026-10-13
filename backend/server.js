@@ -19,10 +19,16 @@ const allowedOrigins = (process.env.CLIENT_ORIGIN || 'http://localhost:5173')
 
 app.set('trust proxy', 1);
 
+function matchOrigin(pattern, origin) {
+  if (!pattern.includes('*')) return pattern === origin;
+  const escaped = pattern.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*');
+  return new RegExp(`^${escaped}$`).test(origin);
+}
+
 function isOriginAllowed(origin, req) {
   if (!origin) return true;
   const normalized = origin.replace(/\/+$/, '').toLowerCase();
-  if (allowedOrigins.includes(normalized)) return true;
+  if (allowedOrigins.some((pattern) => matchOrigin(pattern, normalized))) return true;
   const selfOrigin = `${req.protocol}://${req.get('host')}`.toLowerCase();
   if (normalized === selfOrigin) return true;
   return false;
