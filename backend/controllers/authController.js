@@ -2,13 +2,9 @@ const jwt = require('jsonwebtoken');
 const asyncHandler = require('../utils/asyncHandler');
 const ApiError = require('../utils/ApiError');
 const User = require('../models/User');
+const { secret: JWT_SECRET, expiresIn: JWT_EXPIRES_IN } = require('../config/jwt');
 
-const signToken = (id) => {
-  if (!process.env.JWT_SECRET) {
-    throw new ApiError(500, 'Server misconfiguration: JWT_SECRET is not set');
-  }
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '7d' });
-};
+const signToken = (id) => jwt.sign({ id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 
 const shapeUser = (user) => ({
   _id: user._id,

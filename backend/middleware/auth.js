@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const asyncHandler = require('../utils/asyncHandler');
 const ApiError = require('../utils/ApiError');
 const User = require('../models/User');
+const { secret: JWT_SECRET } = require('../config/jwt');
 
 const protect = asyncHandler(async (req, res, next) => {
   let token;
@@ -12,7 +13,7 @@ const protect = asyncHandler(async (req, res, next) => {
 
   let decoded;
   try {
-    decoded = jwt.verify(token, process.env.JWT_SECRET);
+    decoded = jwt.verify(token, JWT_SECRET);
   } catch (err) {
     throw new ApiError(401, 'Not authorized, token failed');
   }
