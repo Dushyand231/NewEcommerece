@@ -14,20 +14,29 @@ const clientBuildPath = path.resolve(__dirname, '../frontend/dist');
 
 const allowedOrigins = (process.env.CLIENT_ORIGIN || 'http://localhost:5173')
   .split(',')
-  .map((o) => o.trim())
+  .map((o) => o.trim().replace(/\/+$/, '').toLowerCase())
   .filter(Boolean);
 
 app.set('trust proxy', 1);
 
-app.use(
+function isOriginAllowed(origin, req) {
+  if (!origin) return true;
+  const normalized = origin.replace(/\/+$/, '').toLowerCase();
+  if (allowedOrigins.includes(normalized)) return true;
+  const selfOrigin = `${req.protocol}://${req.get('host')}`.toLowerCase();
+  if (normalized === selfOrigin) return true;
+  return false;
+}
+
+app.use((req, res, next) => {
   cors({
     origin(origin, cb) {
-      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
-      cb(new Error('Not allowed by CORS'));
+      if (isOriginAllowed(origin, req)) return cb(null, true);
+      cb(new Error(`Not allowed by CORS (origin: ${origin})`));
     },
     credentials: true,
-  })
-);
+  })(req, res, next);
+});
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 app.use(express.json({ limit: '2mb' }));
 
