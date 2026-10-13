@@ -4,11 +4,11 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 
 const DEMO_ACCOUNTS = [
-  { name: 'Emma Wilson', email: 'emma@shopsphere.com', password: 'password123' },
-  { name: 'James Brown', email: 'james@shopsphere.com', password: 'password123' },
-  { name: 'Sofia Martinez', email: 'sofia@shopsphere.com', password: 'password123' },
-  { name: 'Ethan Davis', email: 'ethan@shopsphere.com', password: 'password123' },
-  { name: 'Olivia Taylor', email: 'olivia@shopsphere.com', password: 'password123' },
+  { name: 'Henry Adams', email: 'henry@shopsphere.com', password: 'password123' },
+  { name: 'Grace Lewis', email: 'grace@shopsphere.com', password: 'password123' },
+  { name: 'Lucas Walker', email: 'lucas@shopsphere.com', password: 'password123' },
+  { name: 'Zoe Hughes', email: 'zoe@shopsphere.com', password: 'password123' },
+  { name: 'Leo Ramirez', email: 'leo@shopsphere.com', password: 'password123' },
 ];
 
 export default function LoginPage() {

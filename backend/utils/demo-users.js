@@ -5,11 +5,11 @@ const User = require('../models/User');
 const password = 'password123';
 
 const customers = [
-  { name: 'Emma Wilson', email: 'emma@shopsphere.com', password },
-  { name: 'James Brown', email: 'james@shopsphere.com', password },
-  { name: 'Sofia Martinez', email: 'sofia@shopsphere.com', password },
-  { name: 'Ethan Davis', email: 'ethan@shopsphere.com', password },
-  { name: 'Olivia Taylor', email: 'olivia@shopsphere.com', password },
+  { name: 'Henry Adams', email: 'henry@shopsphere.com', password },
+  { name: 'Grace Lewis', email: 'grace@shopsphere.com', password },
+  { name: 'Lucas Walker', email: 'lucas@shopsphere.com', password },
+  { name: 'Zoe Hughes', email: 'zoe@shopsphere.com', password },
+  { name: 'Leo Ramirez', email: 'leo@shopsphere.com', password },
 ];
 
 const adminEmail = (process.env.ADMIN_SEED_EMAIL || 'admin@shopsphere.com').toLowerCase();
